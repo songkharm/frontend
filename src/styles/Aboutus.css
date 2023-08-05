@@ -1,0 +1,47 @@
+.container1{
+    width: 90%;
+    margin:auto;
+display: flex;
+}
+
+.button01  {
+    background-color:rgb(199, 255, 17);
+    color: rgb(0, 0, 0);
+    font-size: large;
+    border: none;
+    padding: 20px 80px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.button01:hover {
+    background-color: black;
+    color:rgb(255, 255, 255);
+}
+
+.text01{
+    font-size: 50px;
+    color:black;
+}
+
+.text02{
+    font-size: 25px;
+    color:black;
+}
+
+.text03{
+    font-size: 25px;
+    color:black;
+}
+
+.info01{
+    flex:1;
+    padding-top: 5%;
+}
+
+.image01{
+    flex:1;
+    padding-top: 5%;
+}
+

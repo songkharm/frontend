@@ -1,39 +1,142 @@
-import React from 'react'
-import '../styles/Navbar.css'
+import React, { useState } from "react";
+import "../styles/Navbar.css";
+import { Avatar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import LoginDialog from "./LoginDialog";
+import RegisterDialog from "./RegjsterDialog";
+import { YoutubeSearchedForOutlined } from "@mui/icons-material";
+import axios from "axios";
 
-export default function Navbar() {
-    return (
-        <div className='container'>
-            <div className='logo'>
-                <h1>WISTIA</h1>
-            </div>
+export default function Navbar(props) {
+  const [logindata, setlogindata] = useState(false);
+  const [autData, setAuthData] = useState({});
+  const [open, setopen] = useState(false);
+  const [openRegister, setopenRegister] = useState(false);
+  const navigation = useNavigate();
 
-            <div className='menu'>
-                <div className='menuItem'>
-                    <p>Product</p>
-                    <i class='fa fa-angle-down'></i>
-                </div>
+  const handlelink = (path) => {
+    window.location.href = path;
+  };
 
-                <div className='menuItem'>
-                    <p>Learning center</p>
-                    <i class='fa fa-angle-down'></i>
-                </div>
+  const handleOpenDialog = () => {
+    setopen(true);
+  };
 
-                <div className='menuItem'>
-                    <p>Original Series</p>
-                    <i class='fa fa-angle-down'></i>
-                </div>
+  const handleCloseDialog = () => {
+    setopen(false);
+  };
 
-                <div className='menuItem'>
-                    <p>About</p>
-                    <i class='fa fa-angle-down'></i>
-                </div>
-            </div>
+  const handleRegisterDialog = () => {
+    setopenRegister(true);
+  };
 
-            <div className='button'>
-                <button className='loginButtonStyle'>Login</button>
-                <button className='getStartButtonStyle'>Get started</button>
-            </div>
+  const handleCloseRegisrDiag = () => {
+    setopenRegister(false);
+  };
+
+  const handleChange = (e) => {
+    setAuthData({
+      ...autData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = () => {
+    axios({
+      url: "http://localhost:3000/login",
+      method: "POST",
+      data: autData,
+    }).then((res) => {
+      console.log(res.data)
+      if (res.data.success) {
+        props.setAvatarLetter (res.data.data.user.username.charAt(0).toUpperCase());
+        localStorage.setItem("token", res.data.data.token);
+        props.setIsLoggedIn(true);
+        setopen(false);
+      } else {
+        alert(res.data.message);
+      }
+    });
+  };
+
+  const handleRegister = () => {
+    axios({
+      url: "http://localhost:3000/register",
+      method: "POST",
+      data: autData,
+    }).then((res) => {
+      // console.log(res.data);
+    });
+  };
+
+  return (
+    <div className="navbarcontainer">
+      <div className="logo">
+        <h1>WISTIA</h1>
+      </div>
+
+      <div className="menu">
+        <div className="menuItem">
+          <p>Product</p>
+          <i class="fa fa-angle-down"></i>
         </div>
-    )
+
+        <div className="menuItem">
+          <p>Learning center</p>
+          <i class="fa fa-angle-down"></i>
+        </div>
+
+        <div className="menuItem">
+          <p>Original Series</p>
+          <i class="fa fa-angle-down"></i>
+        </div>
+
+        <div className="menuItem">
+          <p onClick={() => handlelink("/aoboutus")}>About</p>
+          <i class="fa fa-angle-down"></i>
+        </div>
+      </div>
+
+      {!props.isLoggedIn ? (
+        <div className="button">
+          <button onClick={handleOpenDialog} className="loginButtonStyle">
+            Login
+          </button>
+          <button
+            onClick={handleRegisterDialog}
+            className="getStartButtonStyle"
+          >
+            Cancfl
+          </button>
+        </div>
+      ) : (
+        <Avatar
+          sx={{
+            cursor: "pointer",
+          }}
+          onClick={() => handlelink("/profile")}
+        >
+          {props.avatarLetter}
+        </Avatar>
+      )}
+      <div className="navbarIcon">
+        <MenuIcon />
+      </div>
+
+      <LoginDialog
+        open={open}
+        handleCloseDialog={handleCloseDialog}
+        handleChange={handleChange}
+        handleLogin={handleLogin}
+      />
+
+      <RegisterDialog
+        open={openRegister}
+        handleCloseRegisrDiag={handleCloseRegisrDiag}
+        handleRegister={handleRegister}
+        handleChange={handleChange}
+      />
+    </div>
+  );
 }

@@ -1,13 +1,53 @@
-.container {
+.navbarcontainer {
     width: 90%;
     margin: auto;
     display: flex;
 }
+.button1 {
+    background-color: rgb(194, 222, 18); 
+    border: none;
+    padding: 30px 90px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.button1:hover {
+    background-color:blue;
+    color: aqua;
+    bottom: 10px;
+}
+.button2 {
+    background-color: rgb(7, 171, 37); 
+    border: none;
+    padding: 30px 90px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.button2{
+    background-color: rgb(219, 126, 12);
+    color: aquamarine;
+    bottom: 10px;
+}   
+.text1{
+    font-size: 32px;    
+}
+
+.text2{
+    font-size: 24px;
+}
 
 .info {
     flex: 1;
+    padding-top: 10%;
 }
 
 .image {
     flex: 1;
+}
+
+@media screen and (max-width: 899px){
+    .navbarcontainer {
+        flex-direction: column;
+    }
 }
