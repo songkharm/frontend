@@ -17,7 +17,7 @@ export default function App() {
 
     if (token) {
       axios({
-        url: 'http://localhost:3000/user',
+        url: window.$api+"/user",
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`

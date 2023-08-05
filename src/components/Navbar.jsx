@@ -44,7 +44,7 @@ export default function Navbar(props) {
 
   const handleLogin = () => {
     axios({
-      url: "http://localhost:3000/login",
+      url: window.$api+"/login",
       method: "POST",
       data: autData,
     }).then((res) => {
@@ -62,7 +62,7 @@ export default function Navbar(props) {
 
   const handleRegister = () => {
     axios({
-      url: "http://localhost:3000/register",
+      url: window.$api+"/register",
       method: "POST",
       data: autData,
     }).then((res) => {
@@ -79,22 +79,22 @@ export default function Navbar(props) {
       <div className="menu">
         <div className="menuItem">
           <p>Product</p>
-          <i class="fa fa-angle-down"></i>
+          <i className="fa fa-angle-down"></i>
         </div>
 
         <div className="menuItem">
           <p>Learning center</p>
-          <i class="fa fa-angle-down"></i>
+          <i className="fa fa-angle-down"></i>
         </div>
 
         <div className="menuItem">
           <p>Original Series</p>
-          <i class="fa fa-angle-down"></i>
+          <i className="fa fa-angle-down"></i>
         </div>
 
         <div className="menuItem">
           <p onClick={() => handlelink("/aoboutus")}>About</p>
-          <i class="fa fa-angle-down"></i>
+          <i className="fa fa-angle-down"></i>
         </div>
       </div>
 
